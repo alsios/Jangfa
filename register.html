@@ -3,167 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hennessy - Registre</title>
+    <title>JANGFA - Registre</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #4cd964;
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* En-tête vert */
-        .top-header {
-            background-color: #4cd964;
-            color: #fff;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .back-btn {
-            position: absolute;
-            left: 15px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        .brand-title {
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        /* Conteneur blanc avec arrondi supérieur gauche */
-        .main-container {
-            background-color: #fff;
-            flex: 1;
-            border-top-left-radius: 40px;
-            padding: 25px 20px;
-            margin-top: 10px;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            font-size: 14px;
-            color: #333;
-            font-weight: 400;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-        }
-
-        .input-icon {
-            color: #4cd964;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-
-        .form-input {
-            width: 100%;
-            border: none;
-            outline: none;
-            font-size: 14px;
-            color: #333;
-            background: transparent;
-        }
-
-        .form-input::placeholder {
-            color: #aaa;
-        }
-
-        .prefix-phone {
-            color: #aaa;
-            font-size: 14px;
-            margin-right: 5px;
-        }
-
-        /* Captcha spécifique */
-        .captcha-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .captcha-input-wrap {
-            flex: 1;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            align-items: center;
-            padding-bottom: 8px;
-            margin-right: 15px;
-        }
-
-        .captcha-box {
-            background: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 6px 12px;
-            font-size: 20px;
-            font-weight: 900;
-            font-style: italic;
-            letter-spacing: 3px;
-            color: #333;
-            user-select: none;
-            cursor: pointer;
-            min-width: 100px;
-            text-align: center;
-        }
-
-        /* Bouton d'inscription vert ovale */
-        .btn-submit {
-            width: 100%;
-            background: #4cd964;
-            color: #fff;
-            border: none;
-            padding: 14px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            text-align: center;
-            margin-top: 30px;
-            box-shadow: 0 4px 10px rgba(76, 217, 100, 0.3);
-        }
-
-        .btn-submit:active {
-            opacity: 0.8;
-        }
-
-        .auth-footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 13px;
-            color: #666;
-        }
-
-        .auth-footer a {
-            color: #4cd964;
-            text-decoration: none;
-            font-weight: 600;
-        }
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #16a34a; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+        .top-header { background-color: #16a34a; color: #fff; padding: 15px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .back-btn { position: absolute; left: 15px; color: #fff; text-decoration: none; font-size: 18px; }
+        .brand-title { font-size: 18px; font-weight: 500; }
+        .main-container { background-color: #fff; flex: 1; border-top-left-radius: 40px; padding: 25px 20px; margin-top: 10px; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 20px; }
+        .form-label { font-size: 14px; color: #333; font-weight: 400; margin-bottom: 8px; display: block; }
+        .input-wrapper { position: relative; display: flex; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px; }
+        .input-icon { color: #16a34a; font-size: 16px; margin-right: 10px; }
+        .form-input { width: 100%; border: none; outline: none; font-size: 14px; color: #333; background: transparent; }
+        .form-input::placeholder { color: #aaa; }
+        .prefix-phone { color: #aaa; font-size: 14px; margin-right: 5px; }
+        .captcha-row { display: flex; align-items: center; justify-content: space-between; }
+        .captcha-input-wrap { flex: 1; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; padding-bottom: 8px; margin-right: 15px; }
+        .captcha-box { background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; padding: 6px 12px; font-size: 20px; font-weight: 900; font-style: italic; letter-spacing: 3px; color: #333; user-select: none; cursor: pointer; min-width: 100px; text-align: center; }
+        .btn-submit { width: 100%; background: #16a34a; color: #fff; border: none; padding: 14px; border-radius: 30px; font-size: 16px; font-weight: 500; cursor: pointer; text-align: center; margin-top: 30px; box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3); }
+        .btn-submit:active { opacity: 0.8; }
+        .auth-footer { text-align: center; margin-top: 20px; font-size: 13px; color: #666; }
+        .auth-footer a { color: #16a34a; text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -174,7 +36,6 @@
     </div>
 
     <div class="main-container">
-        
         <div class="form-group">
             <label class="form-label">Mobile</label>
             <div class="input-wrapper">
@@ -203,7 +64,7 @@
         <div class="form-group">
             <label class="form-label">Code D'invitation</label>
             <div class="input-wrapper">
-                <i class="fas fa-check-circle input-icon" style="color: #4cd964;"></i>
+                <i class="fas fa-check-circle input-icon" style="color: #16a34a;"></i>
                 <input type="text" id="inviteCode" class="form-input" value="P26kSI">
             </div>
         </div>
@@ -226,7 +87,6 @@
         <div class="auth-footer">
             Vous avez déjà un compte ? <a href="index.html">Se connecter</a>
         </div>
-
     </div>
 
     <script>
@@ -248,7 +108,7 @@
         });
 
         function generateUserInviteCode() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const chars = 'abcdefghijklmnopqrstuvwxyz';
             let code = '';
             for (let i = 0; i < 6; i++) {
                 code += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -257,15 +117,21 @@
         }
 
         async function registerUser() {
-            const phone = document.getElementById('phone').value.trim();
+            let phoneInput = document.getElementById('phone').value.trim();
             const password = document.getElementById('password').value.trim();
             const confirmPassword = document.getElementById('confirmPassword').value.trim();
             const inviteCodeInput = document.getElementById('inviteCode').value.trim();
             const captchaInput = document.getElementById('captchaInput').value.trim();
 
-            if (!phone || phone.length < 9) {
+            if (!phoneInput || phoneInput.length < 9) {
                 alert("Veuillez entrer un numéro de téléphone valide.");
                 return;
+            }
+
+            // Normalisation du numéro (ajoute +243 si l'utilisateur ne l'a pas mis)
+            if(!phoneInput.startsWith("+243")) {
+                if(phoneInput.startsWith("0")) phoneInput = "+243" + phoneInput.substring(1);
+                else phoneInput = "+243" + phoneInput;
             }
 
             if (!password || password.length < 4) {
@@ -286,34 +152,46 @@
             }
 
             try {
-                const checkRes = await fetch(`${dbUrl}/users/${encodeURIComponent(phone)}.json`);
-                const existingUser = await checkRes.json();
+                // Utilisation de la même structure de table "utilisateurs" que le reste de votre appli
+                const checkRes = await fetch(`${dbUrl}/utilisateurs.json`);
+                const allUsers = await checkRes.json();
+                
+                let phoneExists = false;
+                if(allUsers) {
+                    for(let id in allUsers) {
+                        if(allUsers[id].telephone === phoneInput) {
+                            phoneExists = true;
+                            break;
+                        }
+                    }
+                }
 
-                if (existingUser) {
+                if (phoneExists) {
                     alert("Ce numéro de téléphone est déjà enregistré.");
                     return;
                 }
 
                 const myInviteCode = generateUserInviteCode();
                 const newUser = {
-                    phone: phone,
+                    telephone: phoneInput,
                     password: password,
-                    referredBy: inviteCodeInput || "",
+                    parrain: inviteCodeInput || "",
                     inviteCode: myInviteCode,
-                    balance: 0,
-                    createdAt: new Date().toISOString()
+                    solde: 0,
+                    revenuCumule: 0,
+                    level: "Lv1",
+                    dateInscription: new Date().toLocaleDateString()
                 };
 
-                const saveRes = await fetch(`${dbUrl}/users/${encodeURIComponent(phone)}.json`, {
-                    method: 'PUT',
+                const saveRes = await fetch(`${dbUrl}/utilisateurs.json`, {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newUser)
                 });
 
                 if (saveRes.ok) {
-                    localStorage.setItem('userPhone', phone);
-                    alert("Inscription réussie !");
-                    window.location.href = "dashboard.html";
+                    alert("Inscription réussie ! Veuillez vous connecter.");
+                    window.location.href = "index.html"; // Redirection vers la page de connexion
                 } else {
                     alert("Erreur lors de l'enregistrement. Veuillez réessayer.");
                 }
