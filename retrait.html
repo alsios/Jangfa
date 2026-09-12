@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANGFA | Retraits</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #f8fafc; font-family: 'Poppins', sans-serif; margin: 0; padding-bottom: 50px; color: #0f172a; }
+        
+        .profile-header {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(22, 163, 74, 0.85)), url('IMG_7280.jpeg');
+            background-size: cover; background-position: center;
+            height: 180px; color: white; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            border-bottom-left-radius: 2.5rem; border-bottom-right-radius: 2.5rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+        }
+
+        .card { background: white; border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03); transition: border-color 0.2s; }
+        .card:hover { border-color: #cbd5e1; }
+        
+        .input-premium { background: #f8fafc; border-radius: 1rem; padding: 18px; width: 100%; outline: none; font-weight: bold; border: 1px solid #e2e8f0; transition: 0.25s; }
+        .input-premium:focus { border-color: #16a34a; background: white; box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1); }
+
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; display: flex; justify-content: space-around;
+            padding: 15px 0; border-top: 1px solid #e2e8f0; z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.04);
+        }
+        .nav-link { text-align: center; color: #94a3b8; font-size: 11px; text-decoration: none; font-weight: bold; transition: color 0.2s; }
+        .nav-link.active { color: #16a34a; }
+    </style>
+</head>
+<body class="pb-24">
+
+    <!-- Section En-tête -->
+    <div class="profile-header text-center mb-6">
+        <h1 class="text-xl font-black uppercase tracking-tight">Retrait CDF</h1>
+        <p class="text-[9px] font-bold opacity-90 uppercase tracking-[0.2em] mt-1 text-emerald-200">Lundi au Dimanche: 09h00 — 17h00</p>
+        <p class="text-[8px] font-bold text-white uppercase tracking-widest mt-0.5 opacity-80">Arrivée : 3h à 24h maximum</p>
+    </div>
+
+    <div class="px-5 space-y-5">
+        <!-- Section Compte de Réception -->
+        <div class="card p-5">
+            <h3 class="text-[10px] font-black uppercase text-slate-400 mb-3.5 tracking-widest flex items-center gap-2">
+                <i class="fa-solid fa-credit-card text-green-600"></i> Destination des fonds
+            </h3>
+
+            <!-- État 1: Le compte n'est pas encore configuré -->
+            <div id="formLiaison" class="space-y-3.5">
+                <div class="bg-amber-50 p-3.5 rounded-2xl border border-amber-200/60 flex gap-3 items-start">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-500 mt-0.5"></i>
+                    <p class="text-[10px] text-amber-900 font-bold leading-tight uppercase tracking-tight">
+                        Aucun compte de retrait détecté. Vous devez obligatoirement configurer vos coordonnées de paiement depuis votre espace compte avant de retirer.
+                    </p>
+                </div>
+                <button onclick="window.location.href='compte.html'" class="w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-md shadow-green-600/25 active:scale-95 transition-all">
+                    Aller lier mon compte maintenant
+                </button>
+            </div>
+
+            <!-- État 2: Le compte est déjà configuré -->
+            <div id="affichageCompte" class="hidden">
+                <div class="bg-green-50/50 p-4 rounded-2xl border border-dashed border-green-200">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span id="labelReseau" class="text-[9px] font-black text-green-700 bg-green-100 px-2.5 py-0.5 rounded-md uppercase tracking-wider">CHARGEMENT...</span>
+                        <div class="flex items-center gap-1 text-green-600 text-[9px] font-black uppercase"><i class="fa-solid fa-circle-check"></i> Actif</div>
+                    </div>
+                    <p id="labelNom" class="font-black text-base uppercase text-slate-900 leading-tight">---</p>
+                    <p id="labelNum" class="text-xs font-black text-slate-500 font-mono mt-0.5 italic">000 000 000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Formulaire de Demande -->
+        <div class="card p-5">
+            <h3 class="text-[10px] font-black uppercase text-slate-400 mb-3.5 tracking-widest flex items-center gap-2">
+                <i class="fa-solid fa-money-bill-wave text-green-600"></i> Montant du retrait
+            </h3>
+            
+            <div class="flex items-center gap-2 border-b-2 border-slate-100 mb-3 pb-2">
+                <input type="number" id="montantInput" oninput="calculerFrais()" placeholder="5200" class="w-full text-4xl font-black outline-none bg-transparent text-slate-900 tracking-tighter" disabled>
+                <span class="text-xl font-black text-slate-300 italic">CDF</span>
+            </div>
+
+            <!-- Affichage dynamique du calcul des frais -->
+            <div class="flex justify-between items-center mb-5 px-1">
+                <p class="text-[9px] font-bold text-slate-400 uppercase">Montant Net à recevoir :</p>
+                <p id="netARecevoir" class="text-xs font-black text-green-600">0 CDF</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3.5 mb-5">
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <p class="text-[8px] font-black text-slate-400 uppercase">Seuil Minimum</p>
+                    <p class="text-xs font-black text-slate-800 mt-0.5">5.200 CDF</p>
+                </div>
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <p class="text-[8px] font-black text-slate-400 uppercase">Frais de Réseau</p>
+                    <p id="labelFrais" class="text-xs font-black text-rose-500 mt-0.5">16 %</p>
+                </div>
+            </div>
+
+            <button onclick="soumettreRetraitFirebase()" id="btnRetrait" class="w-full bg-slate-200 text-slate-400 py-3.5 rounded-2xl font-black uppercase text-[10px] tracking-wider cursor-not-allowed border border-slate-200" disabled>
+                Soumettre la demande
+            </button>
+        </div>
+    </div>
+
+    <!-- Barre de navigation inférieure -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house text-xl mb-1"></i><br>Accueil</a>
+        <a href="produit.html" class="nav-link"><i class="fa-solid fa-server text-xl mb-1"></i><br>Produits</a>
+        <a href="equipe.html" class="nav-link"><i class="fa-solid fa-users text-xl mb-1"></i><br>Équipe</a>
+        <a href="compte.html" class="nav-link active"><i class="fa-solid fa-user text-xl mb-1"></i><br>Compte</a>
+    </nav>
+
+    <script>
+        const session = JSON.parse(localStorage.getItem('sonny_session'));
+        const dbURL = "https://sonyy-9b565-default-rtdb.firebaseio.com";
+        let localUserBackup = null;
+
+        if(!session) window.location.href = "index.html";
+
+        // --- CALCUL DYNAMIQUE DES FRAIS DE 16% ---
+        window.calculerFrais = function() {
+            const montant = parseFloat(document.getElementById('montantInput').value);
+            const netContainer = document.getElementById('netARecevoir');
+            
+            if (!montant || isNaN(montant) || montant <= 0) {
+                netContainer.innerText = "0 CDF";
+                return;
+            }
+
+            const frais = montant * 0.16;
+            const net = montant - frais;
+            netContainer.innerText = Math.max(0, net).toLocaleString() + " CDF";
+        }
+
+        // --- CHARGEMENT INITIAL ---
+        async function loadProfileRetrait() {
+            try {
+                const res = await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`);
+                const user = await res.json();
+                localUserBackup = user;
+
+                if(user && user.retraitNom && user.retraitPhone && user.retraitReseau) {
+                    document.getElementById('formLiaison').classList.add('hidden');
+                    document.getElementById('affichageCompte').classList.remove('hidden');
+                    
+                    document.getElementById('labelNom').innerText = user.retraitNom;
+                    document.getElementById('labelNum').innerText = user.retraitPhone;
+                    document.getElementById('labelReseau').innerText = user.retraitReseau;
+                    
+                    document.getElementById('montantInput').disabled = false;
+                    
+                    const btn = document.getElementById('btnRetrait');
+                    btn.disabled = false;
+                    btn.className = "w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-md shadow-green-600/25 active:scale-95 transition-all";
+                }
+            } catch(e) { console.error(e); }
+        }
+
+        // --- TRAITEMENT ET ENVOI DE LA DEMANDE ---
+        async function soumettreRetraitFirebase() {
+            const montant = parseFloat(document.getElementById('montantInput').value);
+            const heure = new Date().getHours();
+            const btn = document.getElementById('btnRetrait');
+
+            // Contrôle des horaires : Tous les jours (Lundi-Dimanche) de 09h00 à 17h00
+            if(heure < 9 || heure >= 17) {
+                alert("🕒 Les demandes de retraits sont ouvertes tous les jours de 09h00 à 17h00.");
+                return;
+            }
+
+            if(montant < 5200 || isNaN(montant)) {
+                alert("⚠️ Le montant minimum requis pour effectuer un retrait est de 5.200 CDF.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.className = "w-full bg-slate-300 text-slate-500 py-3.5 rounded-2xl font-black uppercase text-[10px] tracking-wider text-center cursor-not-allowed";
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Analyse du solde...';
+
+            try {
+                const res = await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`);
+                const user = await res.json();
+
+                // On vérifie par rapport au montant brut demandé (frais inclus)
+                if(montant > user.solde) {
+                    alert("❌ Solde insuffisant ! Votre solde disponible est de : " + user.solde.toLocaleString() + " CDF");
+                    btn.disabled = false;
+                    btn.className = "w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-md shadow-green-600/25 active:scale-95 transition-all";
+                    btn.innerHTML = "Soumettre la demande";
+                    return;
+                }
+
+                // Déduction immédiate du solde global de l'utilisateur
+                const nouveauSolde = user.solde - montant;
+                await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ solde: nouveauSolde })
+                });
+
+                // Enregistrement de la facture pour l'administration (avec mention des frais déduits)
+                const demande = {
+                    userId: session.firebaseId,
+                    telephoneCompte: session.telephone,
+                    montant: montant,
+                    fraisAppliques: montant * 0.16,
+                    montantNet: montant - (montant * 0.16),
+                    receveurNom: user.retraitNom,
+                    receveurNum: user.retraitPhone,
+                    retraitReseau: user.retraitReseau,
+                    date: new Date().toISOString(),
+                    status: "EN ATTENTE"
+                };
+
+                await fetch(`${dbURL}/retraits.json`, {
+                    method: 'POST',
+                    body: JSON.stringify(demande)
+                });
+
+                alert("✅ Votre demande de retrait a été envoyée avec succès. Le délai d'arrivée sur votre compte mobile money est compris entre 3 et 24 heures maximum.");
+                window.location.href = "compte.html";
+
+            } catch(e) { 
+                alert("❌ Erreur de connexion avec le serveur."); 
+                btn.disabled = false; 
+                btn.className = "w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-md shadow-green-600/25 active:scale-95 transition-all";
+                btn.innerHTML = "Soumettre la demande";
+            }
+        }
+
+        window.onload = loadProfileRetrait;
+    </script>
+</body>
+</html>
