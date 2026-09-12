@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANGFA | Recharge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #f8fafc; font-family: 'Poppins', sans-serif; margin: 0; padding-bottom: 100px; color: #0f172a; }
+        
+        .profile-header {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(22, 163, 74, 0.85)), url('IMG_7280.jpeg');
+            background-size: cover; background-position: center;
+            height: 180px; color: white; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            border-bottom-left-radius: 2.5rem; border-bottom-right-radius: 2.5rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+        }
+
+        .amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .amount-box { 
+            background: white; border: 1.5px solid #e2e8f0; border-radius: 1.25rem; 
+            padding: 16px 2px; text-align: center; cursor: pointer; transition: 0.25s;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+        }
+        .amount-box:hover { border-color: #cbd5e1; }
+        .amount-box.active { border-color: #16a34a; background: #f0fdf4; transform: scale(1.03); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15); }
+        .amount-box p { font-size: 12px; font-weight: 900; color: #0f172a; }
+        
+        .method-item { border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: 0.2s; background: white; }
+        .method-item:last-child { border-bottom: none; }
+        .method-active { background: #f0fdf4 !important; border-left: 4px solid #16a34a; }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-bounce-in { animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1); }
+
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; display: flex; justify-content: space-around;
+            padding: 15px 0; border-top: 1px solid #e2e8f0; z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.04);
+        }
+        .nav-link { text-align: center; color: #94a3b8; font-size: 11px; text-decoration: none; font-weight: bold; transition: color 0.2s; }
+        .nav-link.active { color: #16a34a; }
+    </style>
+</head>
+<body>
+
+    <!-- En-tête -->
+    <div class="profile-header text-center mb-6">
+        <h1 class="text-xl font-black uppercase tracking-tight">Recharger CDF</h1>
+        <p class="text-[9px] font-bold opacity-90 uppercase tracking-[0.3em] mt-1 text-emerald-200">Système de Dépôt Sécurisé</p>
+    </div>
+
+    <!-- Grille des montants -->
+    <div class="px-5 mb-6">
+        <h3 class="text-[10px] font-black uppercase text-slate-400 mb-3.5 tracking-widest text-left flex items-center gap-2">
+            <i class="fa-solid fa-money-bill-wave text-green-600"></i> 1. Sélectionnez le montant
+        </h3>
+        <div class="amount-grid">
+            <div class="amount-box" onclick="setAmt(18000, this)"><p>18.000</p></div>
+            <div class="amount-box" onclick="setAmt(35000, this)"><p>35.000</p></div>
+            <div class="amount-box" onclick="setAmt(50000, this)"><p>50.000</p></div>
+            <div class="amount-box" onclick="setAmt(75000, this)"><p>75.000</p></div>
+            <div class="amount-box" onclick="setAmt(100000, this)"><p>100.000</p></div>
+            <div class="amount-box" onclick="setAmt(150000, this)"><p>150.000</p></div>
+            <div class="amount-box" onclick="setAmt(300000, this)"><p>300.000</p></div>
+            <div class="amount-box" onclick="setAmt(500000, this)"><p>500.000</p></div>
+            <div class="amount-box" onclick="setAmt(1000000, this)"><p>1.000.000</p></div>
+        </div>
+    </div>
+
+    <!-- Choix du Réseau -->
+    <div class="px-5 mb-6">
+        <h3 class="text-[10px] font-black uppercase text-slate-400 mb-3.5 tracking-widest text-left flex items-center gap-2">
+            <i class="fa-solid fa-network-wired text-green-600"></i> 2. Choisissez le réseau
+        </h3>
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200">
+            <div class="method-item p-4.5 flex items-center gap-4" onclick="setNet('Orange Money', '0891388645', 'junior Tshunza', this)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg" class="w-6 h-6">
+                <span class="text-xs font-black uppercase tracking-wider text-slate-700">Orange Money</span>
+            </div>
+            <div class="method-item p-4.5 flex items-center gap-4" onclick="setNet('Airtel Money', '0976745334','mokima moussa', this)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Airtel_logo.svg" class="w-6 h-6">
+                <span class="text-xs font-black uppercase tracking-wider text-slate-700">Airtel Money</span>
+            </div>
+            <div class="method-item p-4.5 flex items-center gap-4" onclick="setNet('M-Pesa', '0813944647', 'NUMÉRO ANONYME', this)">
+                <img src="https://i.ibb.co/Vvz8L1Y/mpesa.png" class="w-9 h-5 object-contain">
+                <span class="text-xs font-black uppercase tracking-wider text-slate-700">M-Pesa (Vodacom)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Boîte d'informations de transfert -->
+    <div class="px-5 mb-6">
+        <div id="boxInfo" class="hidden animate-bounce-in bg-white border border-green-100 p-5 rounded-2xl shadow-sm">
+            <div class="flex justify-between items-start mb-2">
+                <div>
+                    <p class="text-[9px] font-black text-green-600 uppercase tracking-widest mb-1">Envoyez l'argent au :</p>
+                    <h2 id="dispNum" class="text-xl font-black tracking-wider text-slate-900 italic">000 000 000</h2>
+                </div>
+                <div class="w-8 h-8 bg-green-50 rounded-full flex items-center justify-center text-green-600 border border-green-100">
+                    <i class="fa-solid fa-shield-halved text-xs"></i>
+                </div>
+            </div>
+            <p id="dispName" class="text-[10px] font-black uppercase text-slate-400 tracking-tight">---</p>
+        </div>
+    </div>
+
+    <!-- Bouton d'action -->
+    <div class="px-5">
+        <button onclick="submitPage1()" class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-md shadow-green-600/25 active:scale-95 transition-all">
+            Continuer <i class="fa-solid fa-chevron-right ml-1.5 text-[9px]"></i>
+        </button>
+    </div>
+
+    <!-- Barre de navigation inférieure -->
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house text-xl mb-1"></i><br>Accueil</a>
+        <a href="produit.html" class="nav-link"><i class="fa-solid fa-server text-xl mb-1"></i><br>Produits</a>
+        <a href="equipe.html" class="nav-link"><i class="fa-solid fa-users text-xl mb-1"></i><br>Équipe</a>
+        <a href="compte.html" class="nav-link active"><i class="fa-solid fa-user text-xl mb-1"></i><br>Compte</a>
+    </nav>
+
+    <script>
+        const session = JSON.parse(localStorage.getItem('sonny_session'));
+        if(!session) window.location.href = "index.html";
+
+        let selection = { amount: 0, method: '', receiverNumber: '', receiverName: '' };
+
+        function setAmt(v, el) {
+            selection.amount = v;
+            document.querySelectorAll('.amount-box').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function setNet(m, n, name, el) {
+            selection.method = m; 
+            selection.receiverNumber = n; 
+            selection.receiverName = name;
+            
+            document.querySelectorAll('.method-item').forEach(i => i.classList.remove('method-active'));
+            el.classList.add('method-active');
+            
+            const box = document.getElementById('boxInfo');
+            box.classList.remove('hidden');
+            document.getElementById('dispNum').innerText = n;
+            document.getElementById('dispName').innerText = "Titulaire : " + name;
+            
+            if (window.navigator.vibrate) window.navigator.vibrate(50);
+        }
+
+        function submitPage1() {
+            if(!selection.amount || !selection.method) {
+                return alert("⚠️ Veuillez sélectionner un montant et un réseau de paiement.");
+            }
+            localStorage.setItem('temp_recharge', JSON.stringify(selection));
+            window.location.href = "recharge_final.html";
+        }
+    </script>
+</body>
+</html>
