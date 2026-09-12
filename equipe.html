@@ -18,18 +18,18 @@
 <body class="pb-24 p-4">
 
     <div class="pt-6 pb-10 text-center">
-        <h1 class="text-3xl font-black uppercase tracking-tight">Mon <span class="text-green-600">Équipe</span></h1>
+        <h1 class="text-3xl font-black uppercase tracking-tight text-gray-900">Mon <span class="text-green-600">Équipe</span></h1>
         <p class="text-[10px] tracking-[0.3em] uppercase font-bold text-gray-400 mt-1">Programme de Parrainage - Jangfa</p>
     </div>
 
     <div class="space-y-6">
         <!-- Section d'invitation avec code à 6 lettres minuscules -->
         <div class="glass-card p-6">
-            <p class="text-[11px] font-black text-gray-400 uppercase mb-4 tracking-widest text-center">Invitez vos amis</p>
+            <p class="text-[11px] font-black text-gray-500 uppercase mb-4 tracking-widest text-center">Invitez vos amis</p>
             <div class="bg-green-50/50 p-4 rounded-2xl border border-dashed border-green-200 mb-4 flex items-center justify-between">
                 <div class="truncate mr-4 text-left">
                     <p class="text-[9px] text-gray-400 font-bold uppercase mb-1">Votre lien unique</p>
-                    <span id="linkSpan" class="text-xs font-bold text-black italic">Chargement...</span>
+                    <span id="linkSpan" class="text-xs font-bold text-gray-800 italic">Chargement...</span>
                 </div>
                 <button onclick="copyInvite()" class="bg-green-600 text-white text-[10px] font-black px-4 py-3 rounded-xl shadow-md active:scale-95 transition-all">COPIER</button>
             </div>
@@ -92,7 +92,8 @@
 
         const myInviteCode = generateSixLetterCode(session.telephone);
         document.getElementById('codeSpan').innerText = myInviteCode;
-        document.getElementById('linkSpan').innerText = "https://axiosiss.github.io/.com-hp/register.html?ref=" + myInviteCode;
+        // Lien mis à jour avec votre domaine exact et l'extension register.html
+        document.getElementById('linkSpan').innerText = "https://alsios.github.io/Jangfa/register.html?ref=" + myInviteCode;
 
         function copyInvite() {
             navigator.clipboard.writeText(document.getElementById('linkSpan').innerText);
