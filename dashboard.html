@@ -10,22 +10,22 @@
     <style>
         body { background-color: #ffffff; font-family: 'Poppins', sans-serif; margin: 0; padding-bottom: 100px; }
         
-        /* Animation pour le défilement des images (IMG_8587.jpeg) */
+        /* Animation pour alterner entre IMG_8588.jpeg et IMG_8573.jpeg toutes les 5 secondes */
         @keyframes slideImages {
-            0%, 45% { background-image: url('IMG_8587.jpeg'); }
-            50%, 95% { background-image: url('IMG_8587.jpeg'); }
-            100% { background-image: url('IMG_8587.jpeg'); }
+            0%, 45% { background-image: url('IMG_8588.jpeg'); }
+            50%, 95% { background-image: url('IMG_8573.jpeg'); }
+            100% { background-image: url('IMG_8588.jpeg'); }
         }
 
         .header-image { 
-            background-image: url('IMG_8587.jpeg');
+            background-image: url('IMG_8588.jpeg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover; 
             height: 200px; 
             position: relative; 
             padding: 15px; 
-            animation: slideImages 6s infinite; 
+            animation: slideImages 10s infinite; 
             transition: background-image 0.5s ease-in-out;
         }
         
@@ -39,7 +39,7 @@
         
         .promo-banner { 
             margin: 20px; 
-            background-image: url('IMG_8587.jpeg');
+            background-image: url('IMG_8573.jpeg');
             background-repeat: no-repeat;
             background-position: center center;
             background-size: cover; 
@@ -50,8 +50,8 @@
             align-items: center; 
             justify-content: flex-end; 
             padding-right: 25px; 
-            animation: slideImages 6s infinite; 
-            animation-delay: 3s; 
+            animation: slideImages 10s infinite; 
+            animation-delay: 5s; 
             transition: background-image 0.5s ease-in-out;
         }
         
@@ -154,6 +154,12 @@
                 const uRes = await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`);
                 const user = await uRes.json();
 
+                if(!user) {
+                    localStorage.clear();
+                    window.location.href = "index.html";
+                    return;
+                }
+
                 const iRes = await fetch(`${dbURL}/investissements/${session.firebaseId}.json`);
                 const products = await iRes.json();
 
@@ -177,6 +183,7 @@
                                 const nextCollectDate = new Date(lastCollect.getTime() + (days * 24 * 60 * 60 * 1000));
                                 await fetch(`${dbURL}/investissements/${session.firebaseId}/${key}.json`, {
                                     method: 'PATCH',
+                                    headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ dernierCollecte: nextCollectDate.toISOString() })
                                 });
                                 hasUpdates = true;
@@ -185,7 +192,7 @@
                     }
                 }
 
-                let finalSolde = user.solde;
+                let finalSolde = user.solde || 0;
                 let finalIncome = user.revenuCumule || 0;
 
                 if (totalGainToCredit > 0) {
@@ -194,6 +201,7 @@
                     
                     await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`, {
                         method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ solde: finalSolde, revenuCumule: finalIncome })
                     });
                     alert(`Gains du jour récupérés : +${totalGainToCredit.toLocaleString()} CDF`);
