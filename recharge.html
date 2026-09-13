@@ -65,6 +65,7 @@
     <div class="profile-header text-center mb-6">
         <h1 class="text-xl font-black uppercase tracking-tight">Recharger CDF</h1>
         <p class="text-[9px] font-bold opacity-90 uppercase tracking-[0.3em] mt-1 text-emerald-200">Système de Dépôt Sécurisé</p>
+        <p class="text-[10px] font-bold text-white mt-1.5">Total rechargé : <span id="totalRechargeDisplay">0</span> CDF</p>
     </div>
 
     <!-- Grille des montants (VIP 1 à VIP 12) -->
@@ -149,6 +150,22 @@
     <script>
         const session = JSON.parse(localStorage.getItem('sonny_session'));
         if(!session) window.location.href = "index.html";
+
+        const dbUrl = "https://sonyy-9b565-default-rtdb.firebaseio.com";
+
+        async function fetchTotalRecharge() {
+            try {
+                const res = await fetch(`${dbUrl}/utilisateurs/${session.firebaseId}.json`);
+                const userData = await res.json();
+                if(userData) {
+                    const total = Number(userData.totalRecharge || 0);
+                    document.getElementById('totalRechargeDisplay').innerText = total.toLocaleString();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        fetchTotalRecharge();
 
         let selection = { amount: 0, method: '', receiverNumber: '', receiverName: '' };
 
