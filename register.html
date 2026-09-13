@@ -128,7 +128,6 @@
                 return;
             }
 
-            // Normalisation du numéro (ajoute +243 si l'utilisateur ne l'a pas mis)
             if(!phoneInput.startsWith("+243")) {
                 if(phoneInput.startsWith("0")) phoneInput = "+243" + phoneInput.substring(1);
                 else phoneInput = "+243" + phoneInput;
@@ -152,7 +151,6 @@
             }
 
             try {
-                // Utilisation de la même structure de table "utilisateurs" que le reste de votre appli
                 const checkRes = await fetch(`${dbUrl}/utilisateurs.json`);
                 const allUsers = await checkRes.json();
                 
@@ -172,6 +170,8 @@
                 }
 
                 const myInviteCode = generateUserInviteCode();
+                
+                // Objet utilisateur enrichi avec les compteurs à 0 pour éviter les 'NaN' ou bugs d'affichage
                 const newUser = {
                     telephone: phoneInput,
                     password: password,
@@ -179,6 +179,8 @@
                     inviteCode: myInviteCode,
                     solde: 0,
                     revenuCumule: 0,
+                    totalRecharge: 0,
+                    totalRetrait: 0,
                     level: "Lv1",
                     dateInscription: new Date().toLocaleDateString()
                 };
@@ -191,7 +193,7 @@
 
                 if (saveRes.ok) {
                     alert("Inscription réussie ! Veuillez vous connecter.");
-                    window.location.href = "index.html"; // Redirection vers la page de connexion
+                    window.location.href = "index.html";
                 } else {
                     alert("Erreur lors de l'enregistrement. Veuillez réessayer.");
                 }
