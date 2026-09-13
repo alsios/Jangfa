@@ -1,15 +1,16 @@
 {
   "name": "JANGFA VIP Investissement",
   "short_name": "JANGFA",
+  "description": "Application d'investissement et de gestion JANGFA",
   "start_url": "/Jangfa/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#16a34a",
   "icons": [
     {
-      "src": "IMG_7280.jpeg",
+      "src": "9C95956B-7B56-487F-8D35-4D5BA2A78AC7.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ]
 }
