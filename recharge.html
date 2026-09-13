@@ -148,7 +148,6 @@
 
     <script>
         const session = JSON.parse(localStorage.getItem('sonny_session'));
-        const dbURL = "https://sonyy-9b565-default-rtdb.firebaseio.com";
         if(!session) window.location.href = "index.html";
 
         let selection = { amount: 0, method: '', receiverNumber: '', receiverName: '' };
@@ -176,36 +175,10 @@
             if (window.navigator.vibrate) window.navigator.vibrate(50);
         }
 
-        async function submitPage1() {
+        function submitPage1() {
             if(!selection.amount || !selection.method) {
                 return alert("⚠️ Veuillez sélectionner un montant et un réseau de paiement.");
             }
-            
-            try {
-                // Récupération des données actuelles pour incrémenter proprement rechargeTotale et le solde
-                const res = await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`);
-                const user = await res.json() || {};
-                
-                const ancienneRechargeTotale = Number(user.rechargeTotale) || 0;
-                const ancienSolde = Number(user.solde) || 0;
-                
-                const nouvelleRechargeTotale = ancienneRechargeTotale + selection.amount;
-                const nouveauSolde = ancienSolde + selection.amount;
-
-                // Mise à jour de Firebase avec la recharge totale et le nouveau solde
-                await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        solde: nouveauSolde,
-                        rechargePortefeuille: nouveauSolde,
-                        rechargeTotale: nouvelleRechargeTotale
-                    })
-                });
-            } catch (e) {
-                console.error("Erreur lors de la mise à jour de la recharge :", e);
-            }
-
             localStorage.setItem('temp_recharge', JSON.stringify(selection));
             window.location.href = "recharge_final.html";
         }
