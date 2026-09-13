@@ -199,11 +199,19 @@
                     return;
                 }
 
-                // Déduction immédiate du solde global de l'utilisateur
+                // Calcul du nouveau solde et du retrait total cumulé
                 const nouveauSolde = user.solde - montant;
+                const ancienRetraitTotal = Number(user.retraitTotal) || 0;
+                const nouveauRetraitTotal = ancienRetraitTotal + montant;
+
+                // Mise à jour du solde et du retraitTotal de l'utilisateur dans Firebase
                 await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`, {
                     method: 'PATCH',
-                    body: JSON.stringify({ solde: nouveauSolde })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        solde: nouveauSolde,
+                        retraitTotal: nouveauRetraitTotal
+                    })
                 });
 
                 // Enregistrement de la facture pour l'administration (avec mention des frais déduits)
@@ -222,6 +230,7 @@
 
                 await fetch(`${dbURL}/retraits.json`, {
                     method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(demande)
                 });
 
