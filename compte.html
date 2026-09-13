@@ -259,15 +259,15 @@
                 const uRes = await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`);
                 const user = await uRes.json();
                 
-                document.getElementById('displaySolde').innerText = (user.solde || 0).toLocaleString() + " CDF";
-                document.getElementById('displayRecharge').innerText = (user.rechargePortefeuille || user.solde || 0).toLocaleString() + " CDF";
+                document.getElementById('displaySolde').innerText = ((user && user.solde !== undefined) ? user.solde : 0).toLocaleString() + " CDF";
+                document.getElementById('displayRecharge').innerText = ((user && (user.rechargePortefeuille !== undefined || user.solde !== undefined)) ? (user.rechargePortefeuille || user.solde) : 0).toLocaleString() + " CDF";
 
                 // Panneau de données
-                document.getElementById('statRechargeTotale').innerText = (user.rechargeTotale || 0).toLocaleString() + " CDF";
-                document.getElementById('statRetraitTotal').innerText = (user.retraitTotal || 0).toLocaleString() + " CDF";
-                document.getElementById('statRevenuTotal').innerText = (user.revenuTotal || 0).toLocaleString() + " CDF";
-                document.getElementById('statRevenuJour').innerText = (user.revenuJour || 0).toLocaleString() + " CDF";
-                document.getElementById('statRevenuEquipe').innerText = (user.revenuEquipe || 0).toLocaleString() + " CDF";
+                document.getElementById('statRechargeTotale').innerText = ((user && user.rechargeTotale !== undefined) ? user.rechargeTotale : 0).toLocaleString() + " CDF";
+                document.getElementById('statRetraitTotal').innerText = ((user && user.retraitTotal !== undefined) ? user.retraitTotal : 0).toLocaleString() + " CDF";
+                document.getElementById('statRevenuTotal').innerText = ((user && user.revenuTotal !== undefined) ? user.revenuTotal : 0).toLocaleString() + " CDF";
+                document.getElementById('statRevenuJour').innerText = ((user && user.revenuJour !== undefined) ? user.revenuJour : 0).toLocaleString() + " CDF";
+                document.getElementById('statRevenuEquipe').innerText = ((user && user.revenuEquipe !== undefined) ? user.revenuEquipe : 0).toLocaleString() + " CDF";
 
                 // 2. Récupération des investissements (pour total des actifs)
                 const iRes = await fetch(`${dbURL}/investissements/${session.firebaseId}.json`);
@@ -279,7 +279,7 @@
                 document.getElementById('statTotalActifs').innerText = totalActifsCount;
 
                 // Liaison du compte
-                if(user.retraitNom && user.retraitPhone && user.retraitReseau) {
+                if(user && user.retraitNom && user.retraitPhone && user.retraitReseau) {
                     isAccountLinked = true;
                     document.getElementById('retraitNom').value = user.retraitNom;
                     document.getElementById('retraitPhone').value = user.retraitPhone;
