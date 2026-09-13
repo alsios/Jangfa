@@ -19,20 +19,30 @@
             box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
         }
 
-        .amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .amount-box { 
             background: white; border: 1.5px solid #e2e8f0; border-radius: 1.25rem; 
-            padding: 16px 2px; text-align: center; cursor: pointer; transition: 0.25s;
+            padding: 14px 2px; text-align: center; cursor: pointer; transition: 0.25s;
             box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
         }
         .amount-box:hover { border-color: #cbd5e1; }
-        .amount-box.active { border-color: #16a34a; background: #f0fdf4; transform: scale(1.03); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15); }
-        .amount-box p { font-size: 12px; font-weight: 900; color: #0f172a; }
+        .amount-box.active { border-color: #16a34a; background: #f0fdf4; transform: scale(1.02); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15); }
+        .amount-box p { font-size: 11px; font-weight: 900; color: #0f172a; }
+        .amount-box span { font-size: 8px; font-weight: 700; color: #16a34a; display: block; margin-top: 2px; }
+
+        /* Grille des réseaux moderne à 2 colonnes */
+        .network-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .network-card {
+            background: white; border: 1.5px solid #e2e8f0; border-radius: 1.5rem;
+            padding: 18px 16px; cursor: pointer; transition: all 0.25s ease;
+            display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02); min-height: 95px; position: relative;
+        }
+        .network-card:hover { border-color: #cbd5e1; transform: translateY(-2px); }
+        .network-card.active { border-color: #16a34a; background: #f0fdf4; box-shadow: 0 6px 16px rgba(22, 163, 74, 0.15); }
         
-        .method-item { border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: 0.2s; background: white; }
-        .method-item:last-child { border-bottom: none; }
-        .method-active { background: #f0fdf4 !important; border-left: 4px solid #16a34a; }
-        
+        .network-card.full-width { grid-column: span 2; flex-direction: row; align-items: center; min-height: 75px; }
+
         @keyframes bounceIn {
             0% { transform: scale(0.95); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
@@ -57,41 +67,50 @@
         <p class="text-[9px] font-bold opacity-90 uppercase tracking-[0.3em] mt-1 text-emerald-200">Système de Dépôt Sécurisé</p>
     </div>
 
-    <!-- Grille des montants -->
+    <!-- Grille des montants (VIP 1 à VIP 12) -->
     <div class="px-5 mb-6">
         <h3 class="text-[10px] font-black uppercase text-slate-400 mb-3.5 tracking-widest text-left flex items-center gap-2">
-            <i class="fa-solid fa-money-bill-wave text-green-600"></i> 1. Sélectionnez le montant
+            <i class="fa-solid fa-money-bill-wave text-green-600"></i> 1. Sélectionnez le montant (VIP 1 - 12)
         </h3>
         <div class="amount-grid">
-            <div class="amount-box" onclick="setAmt(18000, this)"><p>18.000</p></div>
-            <div class="amount-box" onclick="setAmt(35000, this)"><p>35.000</p></div>
-            <div class="amount-box" onclick="setAmt(50000, this)"><p>50.000</p></div>
-            <div class="amount-box" onclick="setAmt(75000, this)"><p>75.000</p></div>
-            <div class="amount-box" onclick="setAmt(100000, this)"><p>100.000</p></div>
-            <div class="amount-box" onclick="setAmt(150000, this)"><p>150.000</p></div>
-            <div class="amount-box" onclick="setAmt(300000, this)"><p>300.000</p></div>
-            <div class="amount-box" onclick="setAmt(500000, this)"><p>500.000</p></div>
-            <div class="amount-box" onclick="setAmt(1000000, this)"><p>1.000.000</p></div>
+            <div class="amount-box" onclick="setAmt(18000, this)"><p>18.000</p><span>VIP 1</span></div>
+            <div class="amount-box" onclick="setAmt(35000, this)"><p>35.000</p><span>VIP 2</span></div>
+            <div class="amount-box" onclick="setAmt(50000, this)"><p>50.000</p><span>VIP 3</span></div>
+            <div class="amount-box" onclick="setAmt(75000, this)"><p>75.000</p><span>VIP 4</span></div>
+            <div class="amount-box" onclick="setAmt(100000, this)"><p>100.000</p><span>VIP 5</span></div>
+            <div class="amount-box" onclick="setAmt(150000, this)"><p>150.000</p><span>VIP 6</span></div>
+            <div class="amount-box" onclick="setAmt(300000, this)"><p>300.000</p><span>VIP 7</span></div>
+            <div class="amount-box" onclick="setAmt(500000, this)"><p>500.000</p><span>VIP 8</span></div>
+            <div class="amount-box" onclick="setAmt(800000, this)"><p>800.000</p><span>VIP 9</span></div>
+            <div class="amount-box" onclick="setAmt(1000000, this)"><p>1.000.000</p><span>VIP 10</span></div>
+            <div class="amount-box" onclick="setAmt(2000000, this)"><p>2.000.000</p><span>VIP 11</span></div>
+            <div class="amount-box" onclick="setAmt(3000000, this)"><p>3.000.000</p><span>VIP 12</span></div>
         </div>
     </div>
 
-    <!-- Choix du Réseau -->
+    <!-- Choix du Réseau (Design Grid Moderne) -->
     <div class="px-5 mb-6">
         <h3 class="text-[10px] font-black uppercase text-slate-400 mb-3.5 tracking-widest text-left flex items-center gap-2">
             <i class="fa-solid fa-network-wired text-green-600"></i> 2. Choisissez le réseau
         </h3>
-        <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200">
-            <div class="method-item p-4.5 flex items-center gap-4" onclick="setNet('Orange Money', '0891388645', 'junior Tshunza', this)">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg" class="w-6 h-6">
-                <span class="text-xs font-black uppercase tracking-wider text-slate-700">Orange Money</span>
+        <div class="network-grid">
+            <!-- Carte Airtel Money -->
+            <div class="network-card" onclick="setNet('Airtel Money', '0961469865', 'mokima moussa', this)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Airtel_logo.svg" class="w-7 h-7 object-contain mb-3">
+                <span class="text-xs font-black uppercase tracking-wider text-slate-800">Airtel Money</span>
             </div>
-            <div class="method-item p-4.5 flex items-center gap-4" onclick="setNet('Airtel Money', '0976745334','mokima moussa', this)">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Airtel_logo.svg" class="w-6 h-6">
-                <span class="text-xs font-black uppercase tracking-wider text-slate-700">Airtel Money</span>
+            <!-- Carte Orange Money -->
+            <div class="network-card" onclick="setNet('Orange Money', '0851971836', 'junior Tshunza', this)">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg" class="w-7 h-7 object-contain mb-3">
+                <span class="text-xs font-black uppercase tracking-wider text-slate-800">Orange Money</span>
             </div>
-            <div class="method-item p-4.5 flex items-center gap-4" onclick="setNet('M-Pesa', '0813944647', 'NUMÉRO ANONYME', this)">
-                <img src="https://i.ibb.co/Vvz8L1Y/mpesa.png" class="w-9 h-5 object-contain">
-                <span class="text-xs font-black uppercase tracking-wider text-slate-700">M-Pesa (Vodacom)</span>
+            <!-- Carte M-Pesa (Pleine largeur sur la ligne du bas) -->
+            <div class="network-card full-width" onclick="setNet('M-Pesa', '0812536259', 'NUMÉRO ANONYME', this)">
+                <div class="flex items-center gap-3">
+                    <img src="https://i.ibb.co/Vvz8L1Y/mpesa.png" class="w-10 h-6 object-contain">
+                    <span class="text-xs font-black uppercase tracking-wider text-slate-800">M-Pesa (Vodacom)</span>
+                </div>
+                <i class="fa-solid fa-circle-check text-green-600 opacity-0 transition-opacity check-icon"></i>
             </div>
         </div>
     </div>
@@ -137,6 +156,7 @@
             selection.amount = v;
             document.querySelectorAll('.amount-box').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
+            if (window.navigator.vibrate) window.navigator.vibrate(30);
         }
 
         function setNet(m, n, name, el) {
@@ -144,8 +164,8 @@
             selection.receiverNumber = n; 
             selection.receiverName = name;
             
-            document.querySelectorAll('.method-item').forEach(i => i.classList.remove('method-active'));
-            el.classList.add('method-active');
+            document.querySelectorAll('.network-card').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
             
             const box = document.getElementById('boxInfo');
             box.classList.remove('hidden');
