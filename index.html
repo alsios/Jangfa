@@ -103,7 +103,10 @@
                     return;
                 }
 
-                if (foundUserData.password !== password) {
+                // Vérification du mot de passe (gère password ou motDePasse)
+                const userPassword = foundUserData.password || foundUserData.motDePasse || foundUserData.motDePassee;
+
+                if (userPassword !== password) {
                     alert("Mot de passe incorrect.");
                     return;
                 }
