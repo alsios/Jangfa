@@ -124,22 +124,27 @@
         // Système de récolte manuelle et crédit automatique sur Firebase
         async function collecterGain(prodKey, gain) {
             try {
-                // 1. Charger le solde actuel
+                // 1. Charger le profil utilisateur actuel
                 const uRes = await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`);
                 const user = await uRes.json();
 
-                const nouveauSolde = user.solde + gain;
+                const nouveauSolde = (user.solde || 0) + gain;
                 const nouveauRevenu = (user.revenuCumule || 0) + gain;
 
-                // 2. Mettre à jour l'utilisateur
+                // 2. Mettre à jour le solde et le revenu cumulé dans Firebase
                 await fetch(`${dbURL}/utilisateurs/${session.firebaseId}.json`, {
                     method: 'PATCH',
-                    body: JSON.stringify({ solde: nouveauSolde, revenuCumule: nouveauRevenu })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        solde: nouveauSolde, 
+                        revenuCumule: nouveauRevenu 
+                    })
                 });
 
                 // 3. Mettre à jour la date de dernière récolte pour ce produit précis
                 await fetch(`${dbURL}/investissements/${session.firebaseId}/${prodKey}.json`, {
                     method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ dernierCollecte: new Date().toISOString() })
                 });
 
